@@ -3,6 +3,14 @@ Behavioral data and analysis scripts underlying the model-human comparisons repo
 
 ## Setup
 
+Clone this repo and `cd` into its folder
+
+```
+git clone git@github.com:CNCLgithub/PbAS-model-human-comparisons.git
+```
+
+Setup your environment:
+
 ```
 python3 -m venv venv
 source venv/bin/activate
