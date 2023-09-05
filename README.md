@@ -20,7 +20,7 @@ Download the `.pkl` files with the pretrained and fine-tuned network results.
 # pretrained
 gdown 1wqYoMp8ExtGFU1HgJjvxwtYmM0BgvTs7
 # finetuned
-gdown 1c3PzD8rCP11bYiNBCThBXjSlwdgpg_N2
+gdown 1cKxRi21HdcdJrDi-l33sHJeVOImk7VOU
 ```
 
 ## Pipeline
