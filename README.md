@@ -13,7 +13,7 @@ cd PbAS-model-human-comparisons
 Setup your environment:
 
 ```
-python3 -m venv venv
+python3 -m venv -p 3.6.3 venv
 source venv/bin/activate
 ```
 
