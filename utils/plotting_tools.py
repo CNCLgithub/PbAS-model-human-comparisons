@@ -1,6 +1,4 @@
 import numpy as np
-
-from scipy.stats import spearmanr
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
@@ -381,21 +379,16 @@ class PlottingTools():
                     ax.plot(x, y_model, "-", color="0.1", linewidth=1.5, alpha=0.5) 
 
                     ci = t * s_err * np.sqrt(1/n + (x2 - np.mean(x))**2 / np.sum((x - np.mean(x))**2))
-                    ax.fill_between(x2, y2 + ci, y2 - ci, color='gray', edgecolor="", alpha=0.5)
+                    ax.fill_between(x2, y2 + ci, y2 - ci, color=['gray'], edgecolor=None, alpha=0.5)
 
                 if submask is not None:
                     a = data_1[mask == j]
                     b = data_2[mask == j]
                     for k in range(np.max(submask) + 1):
                         ax.scatter(a[submask == k], b[submask == k], color=colors[k], s=dotsize)
-                        if verbose == True:
-                            print(np.corrcoef(a[submask==k], b[submask==k])[0,1])
-                            #print(spearmanr(a[submask==k], b[submask==k]))
 
                 else:
-                    if verbose == True:
-                        print(np.corrcoef(data_1[mask==j], data_2[mask==j])[0,1])
-                        #print(spearmanr(data_1[mask==j], data_2[mask==j]))
+
                     ax.scatter(data_1[mask == j], data_2[mask == j], color=colors[j], s=dotsize)
 
                 if ylimits is not None:

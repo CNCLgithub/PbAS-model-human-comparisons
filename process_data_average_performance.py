@@ -97,7 +97,9 @@ for t_short in range(2):
         curr_stim_present = stim_present_levels[t_long]
         b = np.array(df_mean.query('stim_present == [@curr_stim_present]')).flatten()
         print('T1: ' + stim_present_levels[t_short] + ' T2: ' + stim_present_levels[t_long] + ' t-test: ') 
-        print(ttest_ind(a,b))
+        minN = min(a.shape, b.shape)[0]
+        print(minN)
+        print(ttest_ind(a[:minN],b[:minN]))
 
 # MAIN EFFECT of TIME on PERFORMANCE
 df_mean_overall_overall = pd.pivot_table(df_mean, values=['correct'], 
@@ -242,19 +244,6 @@ b = np.array(df_mean.query('condition == 1')).flatten()
 minN = min(a.shape, b.shape)[0]
 print(minN)
 print(ttest_ind(a[:minN],b[:minN]))
-
-print('compare performance across presentation times')
-a = np.array(df_mean.query('stim_present == [@stim_present_levels[0]]')).flatten()
-b = np.array(df_mean.query('stim_present == [@stim_present_levels[1]]')).flatten()
-minN = min(a.shape, b.shape)[0]
-print(minN)
-print(ttest_ind(a[:minN], b[:minN]))
-
-a = np.array(df_mean.query('stim_present == [@stim_present_levels[1]]')).flatten()
-b = np.array(df_mean.query('stim_present == [@stim_present_levels[2]]')).flatten()
-minN = min(a.shape, b.shape)[0]
-print(minN)
-print(ttest_ind(a[:minN], b[:minN]))
 
 # following bootstrap procedure takes a while to run
 #quit()
