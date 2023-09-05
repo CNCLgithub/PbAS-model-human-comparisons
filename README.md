@@ -25,7 +25,7 @@ gdown 1cKxRi21HdcdJrDi-l33sHJeVOImk7VOU
 
 ## Pipeline
 
-### Step 1: Process behavioral data, include quantifying effects of experimental design parameters (occlusion setting and presentation time condition) on behavior 
+### Step 1: Process behavioral data, including quantifying effects of experimental design parameters (occlusion setting and presentation time condition) on behavior 
 
 We separate scripts based on whether we are processing 2AFC accuracy or response time. These scripts also generate the `.pkl` files that are than used in the model-behavior comparisons scripts. 
 
