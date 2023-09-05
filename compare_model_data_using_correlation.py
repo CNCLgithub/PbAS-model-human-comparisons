@@ -79,6 +79,7 @@ anp_network_pr = pickle.load(open('./pretrained-anp.pkl', 'rb'))
 
 finetuned_network_correlation_to_behavior = np.zeros((2, 3, S)) 
 pretrained_network_correlation_to_behavior = np.zeros((2, 3, S)) 
+network_condition_labels = ['unoccluded', 'occluded']
 
 finetuned_network_correlation_to_behavior_sc = np.zeros((2, 3, S)) 
 pretrained_network_correlation_to_behavior_sc = np.zeros((2, 3, S)) 
@@ -86,7 +87,8 @@ pretrained_network_correlation_to_behavior_sc = np.zeros((2, 3, S))
 for time in range(3):
     
     for c, condition in enumerate(behavior_conditions):
-        model = anp_network['finetune'][condition]['overall'].flatten() # using average performance (instead of correlations b/w embeddings) results in negative correlation
+        network_condition_label = network_condition_labels[c]
+        model = anp_network['finetune'][network_condition_label]['overall'].flatten() # using average performance (instead of correlations b/w embeddings) results in negative correlation
         mean_accuracy['FT'][c, time, :] = model
         for s in range(S):
             behavior = behavior_data_bootstrap[condition][s][time]
@@ -94,20 +96,21 @@ for time in range(3):
             finetuned_network_correlation_to_behavior[c, time, s] = np.corrcoef(model, behavior)[0,1]
             finetuned_network_correlation_to_behavior_sc[c, time, s] = np.corrcoef(model[same_indices], behavior[same_indices])[0,1]
 
-    for c, condition in enumerate(['unoccluded', 'occluded']):
+    for c, condition in enumerate(behavior_conditions):
+        network_condition_label = network_condition_labels[c]
         d1 = np.zeros(120)
         d2 = np.zeros(120)
         for k in range(120):
-            targetGtEmbed = anp_network_pr['pretrained'][condition]['boRuns'][0]['targetGtEmbed'][k]
-            targetDisEmbed = anp_network_pr['pretrained'][condition]['boRuns'][0]['targetDisEmbed'][k]
-            studyEmbed = anp_network_pr['pretrained'][condition]['boRuns'][0]['studyEmbed'][k]
+            targetGtEmbed = anp_network_pr[network_condition_label]['boRuns'][0]['targetGtEmbed'][k]
+            targetDisEmbed = anp_network_pr[network_condition_label]['boRuns'][0]['targetDisEmbed'][k]
+            studyEmbed = anp_network_pr[network_condition_label]['boRuns'][0]['studyEmbed'][k]
             d1[k] = np.corrcoef(studyEmbed, targetGtEmbed)[0,1]
             d2[k] = np.corrcoef(studyEmbed, targetDisEmbed)[0, 1]
         model = d1 / (d1 + d2 + 1e-4)
         model = model.flatten()
         mean_accuracy['BU'][c, time, :] = model
         for s in range(S):
-            behavior = behavior_data_bootstrap[behavior_conditions[c]][s][time]
+            behavior = behavior_data_bootstrap[condition][s][time]
             behavior = behavior.flatten()
             pretrained_network_correlation_to_behavior[c, time, s] = np.corrcoef(model, behavior)[0,1]
             pretrained_network_correlation_to_behavior_sc[c, time, s] = np.corrcoef(model[same_indices], behavior[same_indices])[0,1]
