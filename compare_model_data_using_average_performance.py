@@ -76,7 +76,7 @@ for i in range(N):
 anp_network = pickle.load(open('./fine-tuned-anp.pkl', 'rb'))
 
 for c, condition in enumerate(['unoccluded', 'occluded']):
-    pretrained = anp_network[condition]['overall'].flatten()
+    pretrained = anp_network['pretrained'][condition]['overall'].flatten()
     pretrained_average_accuracy[0, c, 0] = np.mean(pretrained[diff_indices])
     pretrained_average_accuracy[0, c, 1] = 0 #np.std(pretrained[diff_indices])
     pretrained_average_accuracy[1, c, 0] = np.mean(pretrained[same_indices])
