@@ -188,7 +188,7 @@ behavioral_averages = {}
 behavioral_averages['1000msec'] = np.squeeze(vals_1000msec[1:,:,0])
 behavioral_averages['2000msec'] = np.squeeze(vals_2000msec[1:,:,0])
 behavioral_averages['UR'] = np.squeeze(vals_ur[1:,:,0])
-#pickle.dump(behavioral_averages, open('behavioral_averages_per_conditions.pkl', 'wb'))
+pickle.dump(behavioral_averages, open('behavioral_averages_per_conditions.pkl', 'wb'))
 
 
 
